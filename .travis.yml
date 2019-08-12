@@ -1,0 +1,25 @@
+language: go
+go: 1.12
+
+install:
+  - GO111MODULE=on
+  - go mod download
+  - go install ./... && GOOS=windows go install ./... && GOOS=darwin go install ./...
+
+script:
+  - cd $HOME/gopath/bin
+  - zip ./fistwallet-linux-amd64.zip fistwallet
+  - cd $HOME/gopath/bin/darwin_amd64
+  - zip ../fistwallet-darwin-amd64.zip fistwallet
+  - cd $HOME/gopath/bin/windows_amd64
+  - zip ../fistwallet-windows-amd64.zip fistwallet.exe
+deploy:
+  provider: releases
+  api_key:
+    secure: scqBo51qnjkP8SmqkzVIi06vN93nrDZ0jnON5ETJuTqooDR+8jjJk2T37YlLx3IIZnh5qAvrYzYX0NmWHBXVrmTaBVC9v6j8S1vgqxx0EJU/b7hS0VzUMy1vPrAZQoNLPsArWNLvK/w24GSm5SuzcvBFATGGnO3Wa2iLX0qEGKTTvF9xGmk5ud4rLiVbG3ZBIRYaVasUM4khAqpAsjTAtpa1k9BJjOc0UN4vfxyLE+XwF9D20StIwMpX5OMbp3dX+Xno280hBq1upgxnV2MQjRmJt4qlciFQv8kY6QZbCNVyfoYSDWRXAARogUN+b2uMIp2vu0vuMz4arkXFfCppeg9Y+1gSfmlo1SXjRrOSLcnNqTYtPffgCSNtijDGWLwPALHVhIOkzFbq2yGjFY0sR2LL9a3z+j2vaT4gGb9EQN3gsCwOgN7w5s7QmFqmwRQa78s45W8LgSz+cla3LG4UnjlQihqWWsAaUmEyw15IV2Y4QFV0J/W/BuxhQfk6VB0de13E+H4Qjih3UJTcYJj1POYw46KnoG8LkAHdnaWTm7vLtW8RPXDgn3EKtNyIsbKZOWNikMGmv6lQIYTqiQAGYVkX2/xKskzGBqF5/qo3D+C7GDhei1Gi7aabGASK1E8HLvnJNTICCAGEYvtwH3ywDbs7btocjIFbzVYhIAXy2lo=
+  skip_cleanup: true
+  file_glob: true
+  file: $HOME/gopath/bin/*.zip
+  on:
+    tags: true
+    repo: fistchain/fistwallet
