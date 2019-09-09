@@ -26,7 +26,7 @@ type HardcodedDeployment struct {
 // DCP0001 specifies hard forking changes to the stake difficulty algorithm as
 // defined by https://github.com/decred/dcps/blob/master/dcp-0001/dcp-0001.mediawiki.
 var DCP0001 = HardcodedDeployment{
-	MainNetActivationHeight:  0,
+	MainNetActivationHeight:  -1,
 	TestNet2ActivationHeight: 0,
 	TestNet3ActivationHeight: 0,
 	SimNetActivationHeight:   0,
